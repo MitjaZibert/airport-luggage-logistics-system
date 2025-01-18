@@ -17,3 +17,15 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 - **Data Relationships**: Implements relationships between flights, luggage, and misplaced luggage.
 - **Stored Procedures and Triggers**: Uses stored procedures (PL/SQL and T-SQL) to manage all the airport and luggage logistics simulation.
 - **Practical Queries**: Provides common SQL queries for managing and analyzing the system.
+
+## Roadmap
+
+- [ ] Model database structure (on Oracle and MS SQL Server)
+- [ ] Import data to both DBs
+- [ ] Write DB triggers
+- [ ] Flights Trafic Simulation in Python
+    - [ ] Flights simulation
+    - [ ] Luggage simulation
+- [ ] Create stored procedure that handle simluation inputs
+- [ ] Update simulation data with DBs
+- [ ] Data Analysis with Seaborn and PowerBi
