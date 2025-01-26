@@ -1,5 +1,5 @@
 # ===========================================================================================
-# Airport Luggage Logistics System
+# Airport Luggage Logistics System - MAIN
 # ===========================================================================================
 
 
@@ -7,25 +7,16 @@
 import pandas as pd
 import numpy as np
 
+# App imports
+from flights_simulation import FlightsSimulation
 
-# Win_Main class
-class StartSimulation():
-    
-    def __init__(self):
-        None
 
-    countries = pd.read_csv('DB_Model/countries_temp.csv')
-    unique_names = countries.drop_duplicates()
-    print(unique_names) 
-    unique_names_df = pd.DataFrame(unique_names, columns=['country'])
-    unique_names_df.to_csv('countries_unique.csv', index=False)
-    print(unique_names_df) 
-    
 # =================================================
 
 def main():
     # Create an instance of StartSimulation
-    simulation = StartSimulation()
+    flights_simulation = FlightsSimulation()
+    flights_simulation.start_flights_simulation()
     
 
 # =================================================
