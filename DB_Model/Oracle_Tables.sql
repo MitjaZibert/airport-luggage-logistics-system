@@ -80,9 +80,7 @@ CREATE TABLE SCHEDULES (
     departure_time VARCHAR2(5),
     arrival_time VARCHAR2(5),
     airline_iata VARCHAR2(2),
-    flight VARCHAR2(10),
     aircraft_iata VARCHAR2(3),
-    flight_duration VARCHAR2(5),
     CONSTRAINT pk_schedules PRIMARY KEY (schedule_id)
 );
 
