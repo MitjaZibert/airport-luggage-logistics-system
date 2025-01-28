@@ -4,7 +4,6 @@
 
 
 # System libraries imports
-import oracledb
 import names
 import time
 import random
@@ -18,68 +17,104 @@ class FlightsSimulation:
     
     def __init__(self):
         # Simulation parameters
-        self.airport_iata = 'ORD' # Airport that is being simulated (e,g, 'ORD' = Chicago O'Hare International Airport)
-        self.max_delays_percentage = 25
-        self.max_delay_minutes = 150
+        self.airport_iata = None # Airport that is being simulated (e,g, 'ORD' = Chicago O'Hare International Airport)
+        self.max_delays_percentage  = None
+        self.max_delay_minutes = None
+
+        self.arriving_flight_location_id = None
+        self.departing_flight_location_id = None
+
+        self.initialize_settings()
         
+    # ===========================================================================================
+    def initialize_settings(self):
+        from read_file import read_file
+
+        settings_file = read_file(r'\settings.ini')
+
+        # App settings (mainly for simulation purposes)
+        self.airport_iata = settings_file['app_settings']['simulated_airport_iata']
+        self.max_delays_percentage = settings_file['app_settings']['max_delays_percentage']
+        self.max_delays_percentage = int(self.max_delays_percentage)
+        self.max_delay_minutes = settings_file['app_settings']['max_delay_minutes']
+        self.max_delay_minutes = int(self.max_delay_minutes)
+        self.hour_lenght_in_seconds = settings_file['app_settings']['hour_lenght_in_seconds']
+        self.hour_lenght_in_seconds = int(self.hour_lenght_in_seconds)
+        
+        # Default DB values
+        self.arriving_flight_location_id = settings_file['default_db_values']['arriving_flight_location_id']
+        self.departing_flight_location_id = settings_file['default_db_values']['departing_flight_location_id']
+        
+    
     # ===========================================================================================
     def start_flights_simulation(self):
         DBUtil.get_conn()
 
-
+        DBUtil.db_truncate_table("db_trigger_log")
+        
         #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!        
         # TESTING CODE
-        #sql = "TRUNCATE TABLE luggage"
         DBUtil.db_truncate_table("luggage")
-        #sql = "TRUNCATE TABLE arriving_flights"
         DBUtil.db_truncate_table("arriving_flights")
 
         
-        self.process_arriving_flights(7, 7)
+        #self.process_arriving_flights(7, 7)
         
         #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+
+        # Check if AIRPORT_SIMULATION_DATA exists - if not, insert default data
+        sql = "SELECT max(hour_length_in_seconds) FROM AIRPORT_SIMULATION_DATA"
+        query_result = DBUtil.db_query(sql)
+        data = query_result[0][0]
+        if data is None:
+            params = {'airport_iata': self.airport_iata, 'hour_lenght_in_seconds': self.hour_lenght_in_seconds}
+            sql = "INSERT INTO AIRPORT_SIMULATION_DATA VALUES (:airport_iata, 0, 1, 0, :hour_lenght_in_seconds)"
+            DBUtil.db_insert(sql, params)
+            # COMMIT new db entries
+            DBUtil.db_commit()
+                
+
         # Start simulation of one week
-        #self.simulate_week_hours(cursor)
+        self.simulate_week_hours()
 
                 
-        
         DBUtil.close_conn()
 
     # ===========================================================================================
     # Simulate each hour of the week
-    def simulate_week_hours(self, cursor):
+    def simulate_week_hours(self):
         
         
         # get length of 1 hour in seconds
-        sql = "SELECT max(hour_length_in_seconds) FROM AIRPORT_SIMULATION_DATA"
-        hour_length_in_seconds = DBUtil.db_query(sql)
-        hour_in_seconds = hour_length_in_seconds[0]
+        sql = "SELECT max(week), max(hour_length_in_seconds) FROM AIRPORT_SIMULATION_DATA"
+        query_result = DBUtil.db_query(sql)
+        week = query_result[0][0]
+        week += 1
         
-        # increase week number by 1
-        sql = "UPDATE AIRPORT_SIMULATION_DATA SET week = week + 1"
-        DBUtil.db_update(sql)
+        hour_in_seconds = query_result[0][1]
+        
 
         # Process all 7 days
-        for day in range(1, 8): 
-            params = {"day": day}
-            sql = "UPDATE AIRPORT_SIMULATION_DATA SET day_of_week = :day"
-            DBUtil.db_update(sql, params)
-
+        for day in range(1, 2): #(1, 8) 
             # Process all 24 hours
-            for hour in range(24):
-                hour_of_day = str(hour)+":00"
-
-                params = {"hour": hour_of_day}
-                sql = "UPDATE AIRPORT_SIMULATION_DATA SET hour_of_day = :hour"
+            for hour_of_day in range(8): #range(24):
+                print(str(day) + " - " + str(hour_of_day))
+                
+                params = {"week": week, "day": day, "hour": hour_of_day}
+                sql = "UPDATE AIRPORT_SIMULATION_DATA SET week = :week, day_of_week = :day, hour_of_day = :hour"
                 DBUtil.db_update(sql, params)
-        
-                print(str(day) + " - " + hour_of_day)
                 
-                self.process_arriving_flights(cursor, day, hour_of_day)
+                DBUtil.db_commit() # COMMIT AIRPORT_SIMULATION_DATA update to make sure DB triggers and procedures were processed
+
+
+                self.process_arriving_flights()
                 #self.process_departing_flights(cursor, day, hour_of_day)
+
+                self.generate_new_luggage()
                 
-                time.sleep(hour_in_seconds)  # Pause for x seconds
+                time.sleep(hour_in_seconds)  # Pause for x seconds (for simulation purpose only)
+        
 
     
     # ===========================================================================================
@@ -102,13 +137,8 @@ class FlightsSimulation:
 
     # ===========================================================================================
     # Process all flights arriving at self.airport_iata on the simulated day and hour and simulate delays
-    def process_arriving_flights(self, day, hour):
+    def process_arriving_flights(self):
 
-        # Call initialize_arraving_flights DB procedure to save all relevant flights
-        DBUtil.db_procedure_no_return (procedure_name="initialize_arraving_flights", 
-                                      params_in=[self.airport_iata, day, hour])
-
-       
         # Simulate arriving flight delays - get a % of randomly selected arriving flights
         sql = f"""SELECT arriving_flight_id, scheduled_arrival_time
                         FROM arriving_flights
@@ -134,10 +164,13 @@ class FlightsSimulation:
                     
             DBUtil.db_update(sql, params)
         
-        
+    # ===========================================================================================
+    # Generate new luggage for currently arriving and departing flights
+    def generate_new_luggage(self):
 
-        # Simulate luggage for currently active flights
-        sql = """SELECT af.arriving_flight_id, af.actual_arrival_time, ac.capacity
+
+        # Simulate luggage for all arriving flights
+        sql = """SELECT af.arriving_flight_id, ac.capacity
                         FROM arriving_flights af
                         INNER JOIN schedules s
                         ON af.schedule_id = s.schedule_id
@@ -148,21 +181,18 @@ class FlightsSimulation:
         
         arriving_flights = DBUtil.db_query(sql)
         
-        luggage_location_id = 1
         luggage = []
 
         for flight in arriving_flights:
-            # Generate a random full name
-            random_name = names.get_full_name()
+            random_name = names.get_full_name() # Generates a random full name as the owner of the luggage
 
-            luggage.append([luggage_location_id, flight[0], random_name])
+            luggage.append([self.arriving_flight_location_id, flight[0], random_name])
 
         # SQL statement with bind variables
-        #sql = "INSERT INTO luggage (luggage_location_id, active_flight_id, owner_name) VALUES (:1, :2, :3)"
+        sql = "INSERT INTO luggage (luggage_location_id, active_flight_id, owner_name) VALUES (:1, :2, :3)"
 
-       
-        # Execute the statement for all rows
-        #cursor.executemany(sql, luggage)
+        # Execute INSERT statement for all items in luggage list
+        DBUtil.db_insert_many(sql, luggage)
 
         
 

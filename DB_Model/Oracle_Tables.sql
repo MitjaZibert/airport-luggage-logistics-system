@@ -6,12 +6,21 @@
 --
 -- ===========================================================================================
 
+DROP TABLE DB_TRIGGER_LOG;
+
+CREATE TABLE DB_TRIGGER_LOG (
+    trigger_name VARCHAR2(200),
+    execution_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    additional_info VARCHAR2(4000)
+);
+
 DROP TABLE AIRPORT_SIMULATION_DATA;
 
 CREATE TABLE AIRPORT_SIMULATION_DATA (
+    airport_iata VARCHAR2(3),
     week NUMBER,
     day_of_week NUMBER,
-    hour_of_day VARCHAR2(5),
+    hour_of_day NUMBER,
     hour_length_in_seconds NUMBER
 );
 

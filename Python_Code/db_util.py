@@ -99,6 +99,19 @@ class DBUtil:
             print("Insert unsuccessful - no connection!")
 
 
+    # INSERT db transactions - from a list (executemany)
+    @classmethod
+    def db_insert_many(cls, insert_statement, insert_list):
+        
+        try:
+            cls.cursor.executemany(insert_statement, insert_list)
+
+        except oracledb.DatabaseError as e:
+            print("Error occurred:", e)
+        except AttributeError:
+            print("Insert unsuccessful - no connection!")
+
+    # UPDATE db transactions
     @classmethod
     def db_update(cls, update_statement, params = None):
         try: 
@@ -116,7 +129,7 @@ class DBUtil:
     # +++++++++++++++++++++++++++
     # DQL commands (SELECT)
     #++++
-    # INSERT db transactions
+    # QUERY DB
     @classmethod
     def db_query(cls, sql, params = None):
         
@@ -140,9 +153,7 @@ class DBUtil:
 
        
 
-
-
-
+    
 
     # +++++++++++++++++++++++++++
     # DCL commands (GRANT, REVOKE)
