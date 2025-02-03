@@ -2,49 +2,92 @@
 DB Data:
 =======================================================================
 
--- from airport: DFW (858), MAD (593), ORD (539), LHR (443)
--- to airport: DFW (838), MAD (577), ORD (535), LHR (456)
+Good options for simuation:
+- flights from airport: DFW (858), MAD (593), ORD (539), LHR (443)
+- flights to airport: DFW (838), MAD (577), ORD (535), LHR (456)
+
+=======================================================================
+
+[ ] - To-do
+[x] - Done
+[a] - Active: Curently working on it
+[p] - Partially complete, the rest to be done later. Missing part, marked with {m}
+[?] - Not yet confirmed for implementation
+[!] - Problem (BUG) in the simulation / code
 
 
 =======================================================================
-SIMULATION STEPS:
+APP Enhancements
 =======================================================================
 
-1. Generate all flights for one week, with all the luggage and passengers
-    - incoming flights carry luggage of three types (1. is final destination, 2. to connecting flight, 3. returning delayed luggage)
-    - departing flights carry luggage of three types (1. checked in luggage, 2. from connecting flight, 3. forwarding delayed luggage-this is done in step two on DB)
+[ ] Add PyQt6 UI 
+    - add buttons to manipulate simulation and data settings
+    - display with all simulation data
 
-2. Simulate each hour in a day
-    - simulate all flights delays for that hour (update flights table)
-    - trigger db procedure to process all the luggage in the system (for that hour)
+
+=======================================================================
+SIMULATION STEPS - Simulate each hour in a day
+=======================================================================
+
+1. arriving flights: luggage number = aircraft capacity
+2. departing flights: luggage number = aircraft capacity + returning luggage + delayed luggage
+
+
+
+--> [x] [DB] Uptick one hour
+
+--> [x] [DB] Generate all flights for current hour
+    - incoming flights
+    - departing flights
+
+--> [a] [Python] Generate luggage for all arriving flights for current hour
+    - incoming flights luggage:
+        - each flight gets same number of luggage as airplane's capacity
+        - each luggage is assigned a random owner name
+        - each luggage is designated a final destination (final destination / continuing on the same flight / connecting flight)
+
+--> [x] [Python] Simulate delays for all flights for current hour
+    - incoming delays
+    - departing delays
+
+--> [ ] [Python] Generate luggage for all departing flights for current hour*
+    - departing flights luggage:
+        - each flight gets transfer luggage, checked-in luggage and returning luggage
+        - each checked-in luggage is assigned a random owner name
+        - departing flights carry luggage of four types (1. checked in luggage, 2. continuing same flight, 3. from connecting flight, 4. forwarding delayed luggage-this is done in step two on DB)
+
+* if luggage is traveling on a connected flight count it luggage for the connecting flight's capacity as well
+
+
+--> [ ] [DB] Process all luggage for current hour
+    - process all the luggage in the system (for that hour)
         - to connecting flight (+ luggage that missed previous flight)
         - to Baggage Claim Area
-        - Unclaimed Baggage Department (if returned)
-    - simulate status of each luggage
-        - missed connecting flight (goes to Baggage Service Office until next flight)
-        - not claimed (+ check for luggage from up to past 3 hours) (goes or remains in Unclaimed Baggage Department)
-        
-
-3. (trigger on DB) Each end of day check if luggage needs to be transfered to a different department
+        - Unclaimed Baggage Department (if it was returned)
 
 
-- Simulate one week, each day seperately, each hour seperately (1 hour = 1 sec)
-    - Each hour get all arriving flights and all departing flights
-        - Each flight produces a simulated* amount of luggage that is stored in a luggage table
-            - incoming flights carry luggage of three types (1. is final destination, to connecting flight, returning luggage)
-            - departing flights carry luggage of three types (1. checked in luggage, from connecting flight, returning luggage)
-            - 
-- Store all flights for a week (arriving, departing)
-- Store all luggage for each flight
-- Each hour (1 second) of simulation calls a DB procedure to process flights and luggage for that hour
-- Each end of day check if luggage needs to be transfered to a different department - db trigger based on flight hour
+  
 
-* simulated luggage
-- determine luggage for each flight (number of pieces, cabin class, destination, owner**, )
-- randomize luggage misshandeling
-- 
+--> [ ] [DB] End of each day
+    - process all luggage that needs to be transfered to a different department
 
-** if passanger is traveling on a connected flight count him and luggage for the connecting flight as well
+=========
+[!] Flights that are delayed to another day are not processed by simulation!!
+
+=========
+[?] Add additional luggage pick up and check in for connecting flights on anoter airline
+[?] Simulate cabin classes - higher class, less missandeling of luggage
+
+===================================
+
+- simulate status of each luggage
+    - luggage misshandeling
+    - missed connecting flight (goes to Baggage Service Office until next flight)
+    - not claimed (+ check for luggage from up to past 3 hours) (goes or remains in Unclaimed Baggage Department)
+ 
+
+
+
 
 =======================================================================
 Luggage Lifecycle:

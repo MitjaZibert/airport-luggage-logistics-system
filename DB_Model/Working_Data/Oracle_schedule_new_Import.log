@@ -1,12 +1,12 @@
 
-SQL*Loader: Release 21.0.0.0.0 - Production on Fri Jan 24 14:50:52 2025
+SQL*Loader: Release 21.0.0.0.0 - Production on Fri Jan 31 16:17:51 2025
 Version 21.3.0.0.0
 
 Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
 
-Control File:   Oracle_Schedule_Import.ctl
-Data File:      schedule.csv
-  Bad File:     schedule.bad
+Control File:   Oracle_schedule_new_Import.ctl
+Data File:      schedule_new.csv
+  Bad File:     schedule_new.bad
   Discard File:  none specified
  
  (Allow all discards)
@@ -26,19 +26,19 @@ Insert option in effect for this table: INSERT
 FROM_AIRPORT_IATA                   FIRST     *   ,       CHARACTER            
 TO_AIRPORT_IATA                      NEXT     *   ,       CHARACTER            
 DAYS_OF_WEEK                         NEXT     *   ,       CHARACTER            
-DEPARTURE_TIME                       NEXT     *   ,       CHARACTER            
-ARRIVAL_TIME                         NEXT     *   ,       CHARACTER            
-FLIGHT_DURATION                      NEXT     *   ,       CHARACTER            
+DEPARTURE_TIME_OLD                   NEXT     *   ,       CHARACTER            
+ARRIVAL_TIME_OLD                     NEXT     *   ,       CHARACTER            
 FLIGHT                               NEXT     *   ,       CHARACTER            
-AIRLINE_IATA                         NEXT     *   ,       CHARACTER            
 AIRCRAFT_IATA                        NEXT     *   ,       CHARACTER            
+FLIGHT_DURATION_OLD                  NEXT     *   ,       CHARACTER            
+AIRLINE_IATA                         NEXT     *   ,       CHARACTER            
 
 Record 1: Rejected - Error on table SCHEDULES, column FROM_AIRPORT_IATA.
-ORA-12899: value too large for column "MZ"."SCHEDULES"."FROM_AIRPORT_IATA" (actual: 23, maximum: 3)
+ORA-12899: value too large for column "MZ"."SCHEDULES"."FROM_AIRPORT_IATA" (actual: 9, maximum: 3)
 
 
 Table SCHEDULES:
-  14186 Rows successfully loaded.
+  11190 Rows successfully loaded.
   1 Row not loaded due to data errors.
   0 Rows not loaded because all WHEN clauses were failed.
   0 Rows not loaded because all fields were null.
@@ -48,12 +48,12 @@ Space allocated for bind array:                 580500 bytes(250 rows)
 Read   buffer bytes: 1048576
 
 Total logical records skipped:          0
-Total logical records read:         14187
+Total logical records read:         11191
 Total logical records rejected:         1
 Total logical records discarded:        0
 
-Run began on Fri Jan 24 14:50:52 2025
-Run ended on Fri Jan 24 14:50:54 2025
+Run began on Fri Jan 31 16:17:51 2025
+Run ended on Fri Jan 31 16:17:53 2025
 
-Elapsed time was:     00:00:01.83
-CPU time was:         00:00:00.13
+Elapsed time was:     00:00:01.86
+CPU time was:         00:00:00.06

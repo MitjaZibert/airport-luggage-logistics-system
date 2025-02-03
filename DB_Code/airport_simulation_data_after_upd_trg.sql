@@ -27,7 +27,7 @@ BEGIN
 
     -- Call the procedure
     IF week > 0 THEN
-        initialize_arraving_flights_proc(
+        initialize_hourly_flights_proc(
             p_airport_iata => airport_iata, 
             p_day_of_week => day_of_week, 
             p_hour_of_day => hour_of_day

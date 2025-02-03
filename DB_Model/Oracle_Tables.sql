@@ -6,7 +6,8 @@
 --
 -- ===========================================================================================
 
-DROP TABLE DB_TRIGGER_LOG;
+-- Log execution and errors of DB procedures and triggers
+-- DROP TABLE DB_TRIGGER_LOG;
 
 CREATE TABLE DB_TRIGGER_LOG (
     trigger_name VARCHAR2(200),
@@ -14,14 +15,19 @@ CREATE TABLE DB_TRIGGER_LOG (
     additional_info VARCHAR2(4000)
 );
 
-DROP TABLE AIRPORT_SIMULATION_DATA;
+
+
+
+-- !!! If dropped add table trigger!!!
+-- DROP TABLE AIRPORT_SIMULATION_DATA;
 
 CREATE TABLE AIRPORT_SIMULATION_DATA (
     airport_iata VARCHAR2(3),
     week NUMBER,
     day_of_week NUMBER,
     hour_of_day NUMBER,
-    hour_length_in_seconds NUMBER
+    hour_length_in_seconds NUMBER,
+    max_hours_connecting_flight NUMBER
 );
 
 
@@ -79,29 +85,24 @@ CREATE TABLE AIRCRAFTS (
 );
 
 
---DROP TABLE CABIN_CLASSES;
-
-CREATE TABLE CABIN_CLASSES (
-    cabin_class_id NUMBER GENERATED ALWAYS AS IDENTITY, 
-    cabin_class VARCHAR2(50),
-    CONSTRAINT pk_cabin_classes PRIMARY KEY (cabin_class_id),
-    CONSTRAINT uniq_cabin_class unique (cabin_class)
-);
-
-
---DROP TABLE SCHEDULES;
+DROP TABLE SCHEDULES;
 
 CREATE TABLE SCHEDULES (
     schedule_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     from_airport_iata VARCHAR2(3),
     to_airport_iata VARCHAR2(3),
     days_of_week VARCHAR2(7),
-    departure_time VARCHAR2(5),
-    arrival_time VARCHAR2(5),
-    flight_duration VARCHAR2(5),
+    scheduled_departure_time DATE,
+    scheduled_arrival_time DATE,
+    flight_duration_minutes NUMBER,
     flight VARCHAR2(10),
     airline_iata VARCHAR2(2),
     aircraft_iata VARCHAR2(3),
+    connecting_to_schedule NUMBER,
+    connecting_from_schedule NUMBER,
+    departure_time_old VARCHAR2(5),
+    arrival_time_old VARCHAR2(5),
+    flight_duration_old VARCHAR2(5),
     CONSTRAINT pk_schedules PRIMARY KEY (schedule_id)
 );
 
@@ -115,47 +116,58 @@ CREATE TABLE LUGGAGE_LOCATION (
     CONSTRAINT pk_luggage_location PRIMARY KEY (luggage_location_id)
 );
 
-DROP TABLE ARRIVING_FLIGHTS;
+
+--DROP TABLE ARRIVING_FLIGHTS;
 
 CREATE TABLE ARRIVING_FLIGHTS (
     arriving_flight_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     schedule_id NUMBER,
-    day_of_week NUMBER,
-    scheduled_arrival_time VARCHAR2(5),
-    actual_arrival_time VARCHAR2(5),
+    scheduled_arrival_time DATE,
+    actual_arrival_time DATE,
     delay_minutes NUMBER,
+    scheduled_arrival_time_old VARCHAR2(5),
+    actual_arrival_time_old VARCHAR2(5),
     CONSTRAINT pk_arriving_flights PRIMARY KEY (arriving_flight_id)
 );
 
 
+--DROP TABLE DEPARTING_FLIGHTS;
 
-DROP TABLE LUGGAGE;
+CREATE TABLE DEPARTING_FLIGHTS (
+    departing_flight_id NUMBER GENERATED ALWAYS AS IDENTITY, 
+    schedule_id NUMBER,
+    scheduled_departure_time DATE,
+    actual_departure_time DATE,
+    delay_minutes NUMBER,
+    scheduled_departure_time_old VARCHAR2(5),
+    actual_departure_time_old VARCHAR2(5),
+    CONSTRAINT pk_departing_flights PRIMARY KEY (departing_flight_id)
+);
+
+
+-- DROP TABLE LUGGAGE;
 
 CREATE TABLE LUGGAGE (
     luggage_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     luggage_location_id NUMBER,
     active_flight_id NUMBER,
+    origin_airport_iata VARCHAR2(3),
+    destination_airport_iata VARCHAR2(3),
     owner_name VARCHAR2(100),
     entry_time DATE DEFAULT SYSDATE,
     update_time DATE,
     CONSTRAINT pk_luggage PRIMARY KEY (luggage_id)
 );
 
--- CREATE TABLE LUGGAGE (
---     luggage_id NUMBER GENERATED ALWAYS AS IDENTITY, 
---     luggage_location_id NUMBER,
---     flight_id NUMBER,
---     cabin_class_id NUMBER,
---     owner_name VARCHAR2(100),
---     CONSTRAINT pk_luggage PRIMARY KEY (luggage_id)
+
+
+
+
+--DROP TABLE CABIN_CLASSES;
+
+-- CREATE TABLE CABIN_CLASSES (
+--     cabin_class_id NUMBER GENERATED ALWAYS AS IDENTITY, 
+--     cabin_class VARCHAR2(50),
+--     CONSTRAINT pk_cabin_classes PRIMARY KEY (cabin_class_id),
+--     CONSTRAINT uniq_cabin_class unique (cabin_class)
 -- );
-
-
---DROP TABLE LUGGAGE_STATUS;
-
-CREATE TABLE LUGGAGE_STATUS (
-    luggage_status_id NUMBER GENERATED ALWAYS AS IDENTITY, 
-    luggage_id NUMBER,
-    luggage_location_id NUMBER,
-    CONSTRAINT pk_luggage_status PRIMARY KEY (luggage_status_id)
-);

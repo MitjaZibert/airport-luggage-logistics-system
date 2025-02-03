@@ -1,0 +1,212 @@
+
+SQL*Loader: Release 21.0.0.0.0 - Production on Thu Jan 30 17:28:41 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   Oracle_Schedule_tmp_Import.ctl
+Data File:      schedule_tmp.csv
+  Bad File:     schedule_tmp.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table SCHEDULES_TMP, loaded from every logical record.
+Insert option in effect for this table: INSERT
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+FROM_AIRPORT_IATA                   FIRST     *   ,       CHARACTER            
+TO_AIRPORT_IATA                      NEXT     *   ,       CHARACTER            
+VALID_FROM                           NEXT     *   ,       CHARACTER            
+VALID_UNTIL                          NEXT     *   ,       CHARACTER            
+DAYS_OF_WEEK                         NEXT     *   ,       CHARACTER            
+DEPARTURE_TIME                       NEXT     *   ,       CHARACTER            
+SCHEDULED_ARRIVAL_TIME               NEXT     *   ,       CHARACTER            
+FLIGHT                               NEXT     *   ,       CHARACTER            
+AIRCRAFT_IATA                        NEXT     *   ,       CHARACTER            
+FLIGHT_DURATION                      NEXT     *   ,       CHARACTER            
+
+Record 1: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 2: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 4: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 5: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 6: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 10: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 11: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 12: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 13: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 14: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 15: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 16: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 19: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 42: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 43: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 44: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 45: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 46: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 47: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 48: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 50: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 51: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 52: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 53: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 54: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 65: Rejected - Error on table SCHEDULES_TMP, column SCHEDULED_ARRIVAL_TIME.
+ORA-12899: value too large for column "MZ"."SCHEDULES_TMP"."SCHEDULED_ARRIVAL_TIME" (actual: 7, maximum: 5)
+
+Record 66: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 67: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 69: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 70: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 71: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 72: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 74: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 75: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 83: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 84: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 85: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 86: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+Record 89: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 93: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 94: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 95: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 96: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 97: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 98: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 99: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 100: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 101: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 102: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 103: Rejected - Error on table SCHEDULES_TMP, column VALID_FROM.
+ORA-01861: literal does not match format string
+
+Record 104: Rejected - Error on table SCHEDULES_TMP, column VALID_UNTIL.
+ORA-01861: literal does not match format string
+
+
+MAXIMUM ERROR COUNT EXCEEDED - Above statistics reflect partial run.
+
+Table SCHEDULES_TMP:
+  53 Rows successfully loaded.
+  51 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 645000 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:           250
+Total logical records rejected:        51
+Total logical records discarded:        0
+
+Run began on Thu Jan 30 17:28:41 2025
+Run ended on Thu Jan 30 17:28:42 2025
+
+Elapsed time was:     00:00:00.26
+CPU time was:         00:00:00.08
