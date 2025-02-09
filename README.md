@@ -20,7 +20,8 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 - **Stored Procedures and Triggers**: Uses stored procedures (PL/SQL and T-SQL) to manage all the airport and luggage logistics simulation.
 - **Practical Queries**: Provides common SQL queries for managing and analyzing the system.
 
-## Roadmap
+
+Roadmap
 ==
 
 [ ] - To-do
@@ -31,22 +32,20 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 [!] - Problem (BUG) in the simulation / code
 
 
-APP Enhancements
-==
+## APP Enhancements
+
 
 [ ] Add PyQt6 UI 
     - add buttons to manipulate simulation and data settings
     - display with all simulation data
 
 
-Code Optimization
-==
+## Code Optimization
 
 [ ] Remove magic numbers, but concisely use ENUMS and Oracle Type for LUGGAGE_LOCATION registry IDs
 [ ] Optimise luggage creation ... right now it is extremely slow!!
 
-SIMULATION STEPS - Simulate each hour in a day
-==
+## SIMULATION STEPS - Simulate each hour in a day
 
 1. arriving flights: luggage number = aircraft capacity
 2. departing flights: luggage number = aircraft capacity + returning luggage + delayed luggage
@@ -104,12 +103,8 @@ SIMULATION STEPS - Simulate each hour in a day
     - luggage misshandeling
     - missed connecting flight (goes to Baggage Service Office until next flight)
     - not claimed (+ check for luggage from up to past 3 hours) (goes or remains in Unclaimed Baggage Department)
- 
 
-
-
-Luggage Lifecycle:
-==
+## Luggage Location
 In Flight 0
 Baggage Claim Area 3
 Baggage Holding Area (Until next flight)
@@ -118,6 +113,13 @@ Lost & Found Department 720
 Baggage Service Office 168
 Unclaimed Baggage Department 1992
 Disposed Luggage Area 0
+
+
+Project Research
+==
+
+
+## Luggage Lifecycle:
 
 1. Check-In Process - handeled by baggage handling system
     a. (99.2%) Successful load - Loaded to the right flight
@@ -146,8 +148,7 @@ Disposed Luggage Area 0
             a. Claimed by a passenger within 60 days
             b. Not claimed for 90 days --> disposed
  
-Possible luggage problems
-==
+## Possible luggage problems
 
 1. Check-In
 - Incorrect tagging (e.g., wrong destination or flight).
@@ -177,8 +178,7 @@ Statistics on Lost Luggage
 - Recovery Rate: Approximately 97% of lost luggage is eventually returned to its owner 
 
 
-Flight Delays
-==
+## Flight Delays
 - Average number of delayed flights per day: 25%
 - Average delays:
     - Minor Delays  (15-59 minutes): ~80% of all delays.
