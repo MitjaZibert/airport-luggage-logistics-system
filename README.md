@@ -29,7 +29,6 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 [!] - Problem (BUG) in the simulation / code
 
 
-==
 APP Enhancements
 ==
 
@@ -38,16 +37,14 @@ APP Enhancements
     - display with all simulation data
 
 
-=======================================================================
 Code Optimization
-=======================================================================
+==
 
 [ ] Remove magic numbers, but concisely use ENUMS and Oracle Type for LUGGAGE_LOCATION registry IDs
 [ ] Optimise luggage creation ... right now it is extremely slow!!
 
-=======================================================================
 SIMULATION STEPS - Simulate each hour in a day
-=======================================================================
+==
 
 1. arriving flights: luggage number = aircraft capacity
 2. departing flights: luggage number = aircraft capacity + returning luggage + delayed luggage
@@ -109,11 +106,11 @@ SIMULATION STEPS - Simulate each hour in a day
 
 
 
-=======================================================================
 Luggage Lifecycle:
-=======================================================================
+==
 In Flight 0
 Baggage Claim Area 3
+Baggage Holding Area (Until next flight)
 With Owner (Picked Up) 0
 Lost & Found Department 720
 Baggage Service Office 168
@@ -147,9 +144,8 @@ Disposed Luggage Area 0
             a. Claimed by a passenger within 60 days
             b. Not claimed for 90 days --> disposed
  
-=======================================================================
 Possible luggage problems
-=======================================================================
+==
 
 1. Check-In
 - Incorrect tagging (e.g., wrong destination or flight).
@@ -179,9 +175,8 @@ Statistics on Lost Luggage
 - Recovery Rate: Approximately 97% of lost luggage is eventually returned to its owner 
 
 
-=======================================================================
 Flight Delays
-=======================================================================
+==
 - Average number of delayed flights per day: 25%
 - Average delays:
     - Minor Delays  (15-59 minutes): ~80% of all delays.
