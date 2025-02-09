@@ -85,23 +85,22 @@ CREATE TABLE AIRCRAFTS (
 );
 
 
-DROP TABLE SCHEDULES;
+-- DROP TABLE SCHEDULES;
 
 CREATE TABLE SCHEDULES (
     schedule_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     from_airport_iata VARCHAR2(3),
     to_airport_iata VARCHAR2(3),
     days_of_week VARCHAR2(7),
-    scheduled_departure_time DATE,
-    scheduled_arrival_time DATE,
+    scheduled_departure_time VARCHAR2(5),
+    scheduled_arrival_time VARCHAR2(5),
+    scheduled_departure_time_date DATE,
+    scheduled_arrival_time_date DATE,
     flight_duration_minutes NUMBER,
     flight VARCHAR2(10),
     airline_iata VARCHAR2(2),
     aircraft_iata VARCHAR2(3),
     connecting_to_schedule NUMBER,
-    connecting_from_schedule NUMBER,
-    departure_time_old VARCHAR2(5),
-    arrival_time_old VARCHAR2(5),
     flight_duration_old VARCHAR2(5),
     CONSTRAINT pk_schedules PRIMARY KEY (schedule_id)
 );
@@ -110,7 +109,7 @@ CREATE TABLE SCHEDULES (
 --DROP TABLE LUGGAGE_LOCATION;
 
 CREATE TABLE LUGGAGE_LOCATION (
-    luggage_location_id NUMBER GENERATED ALWAYS AS IDENTITY, 
+    luggage_location_id NUMBER NOT NULL, 
     location_name VARCHAR2(100),
     location_hours_limit NUMBER,
     CONSTRAINT pk_luggage_location PRIMARY KEY (luggage_location_id)
@@ -122,8 +121,8 @@ CREATE TABLE LUGGAGE_LOCATION (
 CREATE TABLE ARRIVING_FLIGHTS (
     arriving_flight_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     schedule_id NUMBER,
-    scheduled_arrival_time DATE,
-    actual_arrival_time DATE,
+    scheduled_arrival_time VARCHAR2(5),
+    actual_arrival_time VARCHAR2(5),
     delay_minutes NUMBER,
     scheduled_arrival_time_old VARCHAR2(5),
     actual_arrival_time_old VARCHAR2(5),
@@ -136,8 +135,8 @@ CREATE TABLE ARRIVING_FLIGHTS (
 CREATE TABLE DEPARTING_FLIGHTS (
     departing_flight_id NUMBER GENERATED ALWAYS AS IDENTITY, 
     schedule_id NUMBER,
-    scheduled_departure_time DATE,
-    actual_departure_time DATE,
+    scheduled_departure_time VARCHAR2(5),
+    actual_departure_time VARCHAR2(5),
     delay_minutes NUMBER,
     scheduled_departure_time_old VARCHAR2(5),
     actual_departure_time_old VARCHAR2(5),
@@ -149,25 +148,17 @@ CREATE TABLE DEPARTING_FLIGHTS (
 
 CREATE TABLE LUGGAGE (
     luggage_id NUMBER GENERATED ALWAYS AS IDENTITY, 
+    origin_schedule_id NUMBER,
+    destination_schedule_id NUMBER,
     luggage_location_id NUMBER,
-    active_flight_id NUMBER,
-    origin_airport_iata VARCHAR2(3),
-    destination_airport_iata VARCHAR2(3),
+    arriving_flight_id NUMBER,
+    departing_flight_id NUMBER,
     owner_name VARCHAR2(100),
-    entry_time DATE DEFAULT SYSDATE,
-    update_time DATE,
+    entry_week NUMBER,
+    entry_day NUMBER,
+    entry_hour NUMBER,
+    update_week NUMBER,
+    update_day NUMBER,
+    update_hour NUMBER,
     CONSTRAINT pk_luggage PRIMARY KEY (luggage_id)
 );
-
-
-
-
-
---DROP TABLE CABIN_CLASSES;
-
--- CREATE TABLE CABIN_CLASSES (
---     cabin_class_id NUMBER GENERATED ALWAYS AS IDENTITY, 
---     cabin_class VARCHAR2(50),
---     CONSTRAINT pk_cabin_classes PRIMARY KEY (cabin_class_id),
---     CONSTRAINT uniq_cabin_class unique (cabin_class)
--- );

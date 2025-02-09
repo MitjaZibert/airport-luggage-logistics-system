@@ -26,6 +26,13 @@ APP Enhancements
 
 
 =======================================================================
+Code Optimization
+=======================================================================
+
+[ ] Remove magic numbers, but concisely use ENUMS and Oracle Type for LUGGAGE_LOCATION registry IDs
+[ ] Optimise luggage creation ... right now it is extremely slow!!
+
+=======================================================================
 SIMULATION STEPS - Simulate each hour in a day
 =======================================================================
 
@@ -40,7 +47,7 @@ SIMULATION STEPS - Simulate each hour in a day
     - incoming flights
     - departing flights
 
---> [a] [Python] Generate luggage for all arriving flights for current hour
+--> [x] [Python] Generate luggage for all arriving flights for current hour
     - incoming flights luggage:
         - each flight gets same number of luggage as airplane's capacity
         - each luggage is assigned a random owner name
@@ -59,7 +66,7 @@ SIMULATION STEPS - Simulate each hour in a day
 * if luggage is traveling on a connected flight count it luggage for the connecting flight's capacity as well
 
 
---> [ ] [DB] Process all luggage for current hour
+--> [a] [DB] Process all luggage for current hour
     - process all the luggage in the system (for that hour)
         - to connecting flight (+ luggage that missed previous flight)
         - to Baggage Claim Area
@@ -73,6 +80,7 @@ SIMULATION STEPS - Simulate each hour in a day
 
 =========
 [!] Flights that are delayed to another day are not processed by simulation!!
+
 
 =========
 [?] Add additional luggage pick up and check in for connecting flights on anoter airline

@@ -5,6 +5,8 @@
 # System libraries
 import oracledb
 
+import pandas as pd
+
 class DBUtil:
 
     # Class variables
@@ -107,6 +109,9 @@ class DBUtil:
             cls.cursor.executemany(insert_statement, insert_list)
 
         except oracledb.DatabaseError as e:
+            print(insert_statement)
+            df = pd.DataFrame(insert_list, columns=['a', 'b', 'c', 'd', 'e'])
+            df.to_csv('insert_error.csv', index=False)
             print("Error occurred:", e)
         except AttributeError:
             print("Insert unsuccessful - no connection!")

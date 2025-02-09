@@ -10,7 +10,6 @@ import numpy as np
 # App imports
 from flights_simulation import FlightsSimulation
 
-
 # =================================================
 
 def main():
