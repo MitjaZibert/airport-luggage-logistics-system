@@ -29,9 +29,9 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 [!] - Problem (BUG) in the simulation / code
 
 
-=======================================================================
+==
 APP Enhancements
-=======================================================================
+==
 
 [ ] Add PyQt6 UI 
     - add buttons to manipulate simulation and data settings
