@@ -21,6 +21,8 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 - **Practical Queries**: Provides common SQL queries for managing and analyzing the system.
 
 ## Roadmap
+==
+
 [ ] - To-do
 [x] - Done
 [a] - Active: Curently working on it
