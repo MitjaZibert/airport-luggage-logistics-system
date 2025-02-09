@@ -21,6 +21,8 @@ Project will include both Oracle and MS SQL Server databases, to experiment with
 - **Practical Queries**: Provides common SQL queries for managing and analyzing the system.
 
 
+
+
 Roadmap
 ==
 
@@ -113,6 +115,8 @@ Lost & Found Department 720
 Baggage Service Office 168
 Unclaimed Baggage Department 1992
 Disposed Luggage Area 0
+
+
 
 
 Project Research
